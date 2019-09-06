@@ -11,7 +11,8 @@ clc
 fn=@(n) 1/2/tan(pi/n);
 Apotema=@(n,L) L*fn(n);
 Perimeter=@(n,L) n*L;
-Area=@(n,L) Perimeter(n,L)/2*Apotema(n,L);
+phi=@(n) n/2*fn(n);
+Area=@(n,L) L^2*phi(n);
 circle=@(r) pi*r^2;
 a=Apotema(n,L);
 circumradius=sqrt(a^2+L/2^2);
@@ -23,7 +24,7 @@ if mod(n,2)==0
 else
     h=a+circumradius;
 end
-disp(array2table([n;L;fn(n);a;circle(a);h;ndiags(n);Perimeter(n,L);Area(n,L);circumradius;circle(circumradius)],'RowNames',{'Sides','Length','Fixed_Number','Apotema_(green)','Inscribed_circle_area','Height','Diagonals','Perimeter','Area','Circumradius_(blue)','Circumscribed_circle_area'},'VariableNames',{'Value'}))
+disp(array2table([n;L;fn(n);a;circle(a);h;ndiags(n);Perimeter(n,L);phi(n);Area(n,L);circumradius;circle(circumradius)],'RowNames',{'Sides','Length','Fixed_Number_(f)','Apotema_(green)','Inscribed_circle_area','Height','n_of_Diagonals','Perimeter','Area_fixed_number_(phi)','Area','Circumradius_(blue)','Circumscribed_circle_area'},'VariableNames',{'Value'}))
 fprintf('Interior angle (*pi): %s\n',rats(iangle(n)));
 fprintf('Exterior angle (*pi): %s\n',rats(eangle(n)));
 clear fn Apotema Perimeter Area circle
