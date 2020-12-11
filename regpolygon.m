@@ -11,7 +11,7 @@ function regpolygon(varargin)
 %     Inputs:
 %           n: sides number, a scalar >=3 (3 by default)
 %           L: side length, a scalar >0 (1 by default) 
-%                 1 (right tailed)
+%
 %     Outputs:
 %           Sides
 %           Length
