@@ -20,6 +20,7 @@ function regpolygon(varargin)
 %           Inscribed circle area
 %           Height
 %           number of diagonals
+%           ways of fan triangulations
 %           Perimeter
 %           Area fixed number (phi)
 %           Area
@@ -45,6 +46,7 @@ function regpolygon(varargin)
 %     Inscribed_circle_area         1.4879
 %     Height                        1.5388
 %     n_of_Diagonals                     5
+%     ways_of_fan_triangulations         5
 %     Perimeter                          5
 %     Area_fixed_number_(phi)       1.7205
 %     Area                          1.7205
@@ -88,7 +90,14 @@ if mod(n,2)==0
 else
     h=a+circumradius;
 end
-disp(array2table([n;L;fn(n);a;circle(a);h;ndiags(n);Perimeter(n,L);phi(n);Area(n,L);circumradius;circle(circumradius)],'RowNames',{'Sides','Length','Fixed_Number_(f)','Apotema_(green)','Inscribed_circle_area','Height','n_of_Diagonals','Perimeter','Area_fixed_number_(phi)','Area','Circumradius_(blue)','Circumscribed_circle_area'},'VariableNames',{'Value'}))
+triang=@(n) round(exp(gammaln(2*n+1)-sum(gammaln([n+2 n+1]))));
+if n>3
+    tri=triang(n-2);
+else
+    tri=0;
+end
+    
+disp(array2table([n;L;fn(n);a;circle(a);h;ndiags(n);tri;Perimeter(n,L);phi(n);Area(n,L);circumradius;circle(circumradius)],'RowNames',{'Sides','Length','Fixed_Number_(f)','Apotema_(green)','Inscribed_circle_area','Height','n_of_Diagonals','ways_of_fan_triangulations','Perimeter','Area_fixed_number_(phi)','Area','Circumradius_(blue)','Circumscribed_circle_area'},'VariableNames',{'Value'}))
 fprintf('Interior angle: %s*pi\t%0.2f°\n',strtrim(rats(iangle(n))),iangle(n)*180);
 fprintf('Exterior angle: %s*pi\t%0.2f°\n',strtrim(rats(eangle(n))),eangle(n)*180);
 if all(ismember(factor(n),[2 3 5 17 257 65537]))
